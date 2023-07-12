@@ -1,0 +1,51 @@
+.searchbox_container {
+    display: flex;
+    align-items: center;
+
+    input {
+        padding: 10px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        text-indent: 5px;
+    }
+
+    button {
+        margin-left: 5px;
+        transition: all .3s ease;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: transparent;
+        color: rgb(24, 139, 206);
+        border: 1px solid rgb(24, 139, 206);
+        
+    }
+
+    .form__input {
+        margin-left: 5px;
+        background-color: white;
+    }
+}
+
+
+@media only screen and (max-width : 795px) {
+    .searchbox_container {
+        width: 500px;
+        justify-content: space-between;
+        .form__input {
+            width: 100%;
+        }
+
+        .search__btn {
+            width: 20%;
+        }
+    }
+}
+
+@media only screen and (max-width : 525px){
+    .searchbox_container{
+        width: 335px;
+    }
+}

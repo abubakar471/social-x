@@ -1,0 +1,19 @@
+.container{
+    width: 80%;
+    margin: auto;
+}
+
+.heading{
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    cursor: pointer;
+    color: rgb(40, 146, 207);
+}

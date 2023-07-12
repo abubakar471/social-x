@@ -1,0 +1,86 @@
+.container{
+    overflow: hidden;
+}
+
+.card {
+    width: 500px;
+    margin: 20px 0;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background: white;
+    padding: 10px;
+}
+
+.card__body {
+    margin-bottom: 10px;
+}
+
+.cardImage {
+    width: 100%;
+}
+
+.card__header {
+    display: flex;
+    align-items: center;
+    padding: 7px 5px;
+}
+
+.reactionDiv {
+    margin-top: 10px;
+    display: flex;
+    align-items: cnter;
+    justify-content: space-between;
+}
+
+.reactionandcomments {
+    display: flex;
+    align-items: center;
+}
+
+.reactionIcons {
+    color: rgb(24, 139, 206);
+    cursor: pointer;
+}
+
+.postEditAndDelete {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+
+.username {
+    margin: 0 5px;
+}
+
+.createdAt{
+font-size : 12px;
+}
+
+.comment_container {
+    margin: 10px 0;
+}
+
+.comment_user_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment_user_info_item {
+    display: flex;
+    align-items: center;
+}
+
+.comment_time {
+    display: flex;
+    align-items: center;
+    font-size : 12px;
+}
+
+
+@media only screen and (max-width : 525px){
+    .card{
+        width: 335px;
+    }
+}

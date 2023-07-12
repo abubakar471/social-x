@@ -1,0 +1,102 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: white;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.nav_links {
+    display: flex;
+    align-items: center;
+}
+
+.nav_link {
+    width: 50px;
+    margin: 0 5px;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav_link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav_link_icon {
+    height: 30px;
+    color: rgb(24, 139, 206);
+}
+
+.auth_link {
+    color: rgb(24, 139, 206);
+    margin: 0 5px;
+    font-family: 'Comic sans ms', sans-serif;
+}
+
+.logo_container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.logo_text {
+    color: rgb(24, 139, 206);
+    font-family: 'comic sans ms';
+}
+
+.layout {
+    margin-top: 70px;
+}
+
+.spinner {
+    position: absolute;
+    z-index: 99999;
+    top: 0;
+}
+
+.nav_menu_container {
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.nav__search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.nav__search_input {
+    background-color: white;
+}
+
+.nav__search__btn {
+    padding: 15px;
+    margin-left: 5px;
+}
+
+
+.nav__return__icon{
+    padding-left: 10px;
+    font-size: 36px;
+    cursor: pointer;
+}
+@media only screen and (max-width : 525px) {
+    .logo_text {
+        font-size: 14px;
+        white-space: nowrap;
+    }
+}

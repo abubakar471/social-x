@@ -1,0 +1,91 @@
+.container {
+    /* height: calc(100vh - 100px); */
+    margin-top: 120px;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+}
+
+.heroImg {
+    // width: 400px;
+    // height: 300px;
+    width: 500px;
+    height: 320px;
+
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    mask-border-mode: alpha;
+}
+
+
+.form {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    // padding: 0 0 0 120px;
+    padding: 20px;
+    margin: 0 0px 0 20px;
+    margin-bottom: 20px;
+    background: white;
+    // border-radius: 10px;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    mask-border-mode: alpha;
+}
+
+.formHeading {
+    color: rgb(35, 108, 190);
+}
+
+.input {
+    width: 100%;
+    margin: 10px 0
+}
+
+.selectionBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 5px;
+    border-style: ridge;
+    border: 1px ridge gray;
+    opacity: 0.7;
+}
+
+.selectionBox select {
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .wrapper {
+        width: 80%;
+        margin: auto;
+        padding: 10px;
+
+        justify-content: center;
+    }
+
+    .hero {
+        display: none;
+    }
+
+    .form{
+        margin: 0;
+    }
+}

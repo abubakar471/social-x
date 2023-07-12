@@ -1,0 +1,27 @@
+.container {
+    width: 80%;
+    margin: 100px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_body {
+    width: 600px;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn {
+    color: rgb(4, 136, 212);
+    cursor: pointer;
+}
+
+.user_image {
+    width: 60px;
+    height: 250px;
+}
