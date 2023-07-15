@@ -50,7 +50,9 @@ const Profile = () => {
 
 
   const getTotalPosts = async () => {
-    const { data } = await axios.get('/total-posts');
+    const { data } = await axios.get('/profile-page-total-posts');
+    console.log('total posts', data);
+
     setTotalPosts(data);
   }
 
@@ -73,6 +75,7 @@ const Profile = () => {
   const newsFeedFetcher = async () => {
     try {
       const { data } = await axios.get(`/news-feed`);
+      console.log(data)
       setPosts(data);
     } catch (err) {
       console.log(err);
@@ -83,8 +86,8 @@ const Profile = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(`/news-feed?page=${page}`);
- console.log(data)
-      const rawArr = [...collection, ...data];  
+      console.log(data)
+      const rawArr = [...collection, ...data];
       setNewsFeed(rawArr);
       getTotalPosts();
       setPage(page + 1);
@@ -173,7 +176,13 @@ const Profile = () => {
       if (!answer) return;
       const { data } = await axios.delete(`/delete-post/${post._id}`);
       alert("post deleted");
-      newsFeed();
+      const rawArr = collection.filter(p => {
+        if (p._id !== post._id) {
+          return data;
+        }
+      });
+      getTotalPosts();
+      setNewsFeed(rawArr);
     } catch (err) {
       console.log(err);
     }
@@ -182,11 +191,11 @@ const Profile = () => {
   const handleLike = async (_id) => {
     try {
       const { data } = await axios.put("/like-post", { _id });
-    
+
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -202,9 +211,9 @@ const Profile = () => {
     try {
       const { data } = await axios.put("/unlike-post", { _id });
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -231,9 +240,9 @@ const Profile = () => {
       setVisible(false);
 
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -251,11 +260,11 @@ const Profile = () => {
         postId, comment
       });
       alert('comment deleted');
-    
+
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -299,6 +308,7 @@ const Profile = () => {
     // fetch user posts
     if (state && state.token) {
       newsFeedFetcher();
+      getTotalPosts();
       if (state.user.followings.length > 0) {
         fetchFollowings();
       }
@@ -306,9 +316,7 @@ const Profile = () => {
 
   }, [state && state.token]);
 
-  useEffect(() => {
-    getTotalPosts();
-  }, []);
+
 
   return (
     <UserRoute>
@@ -346,7 +354,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.user_followings}>
-              <h3 className={styles.user_followings_title}>{(state && state.user && state.user.followings) ? state.user.followings.length : "0"}<span>Followings</span></h3>
+              <h3 className={styles.user_followings_title}>{(state && state.user && state.user.followings) ? state.user.followings.length : "0"}<Link href="/user/followings" passHref><span>Followings</span></Link></h3>
               <hr style={{ margin: "10px 0" }} />
               <div className={styles.followings_container}>
                 {

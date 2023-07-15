@@ -3,7 +3,7 @@ import { hashPassword, comparePassword } from "../helpers/auth";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-    const { username, email, password, secret } = req.body;
+    const { username, email, password, secret, phone, address } = req.body;
 
     if (!username) {
         return res.json({
@@ -41,7 +41,7 @@ export const signup = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            secret
+            secret, address, phone
         });
 
         try {

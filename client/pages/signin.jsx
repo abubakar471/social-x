@@ -25,6 +25,7 @@ const Signin = () => {
                 alert(data.error);
                 setLoading(false);
             } else {
+                console.log(data)
                 setState({
                     user: data.user,
                     token: data.token

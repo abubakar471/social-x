@@ -177,7 +177,14 @@ const Home = ({ posts }) => {
       if (!answer) return;
       const { data } = await axios.delete(`/delete-post/${post._id}`);
       alert("post deleted");
-      newsFeedFetcher();
+
+      const rawArr = collection.filter(p => {
+        if(p._id !== post._id){
+          return data;
+        } 
+      });
+      getTotalPosts();
+      setNewsFeed(rawArr);
     } catch (err) {
       console.log(err);
     }
@@ -337,7 +344,7 @@ const Home = ({ posts }) => {
 
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:8000/api/posts');
+  const { data } = await axios.get('https://social-x-backend.onrender.com/api/posts');
 
   return {
     props: {

@@ -96,7 +96,6 @@ function Navbar() {
     const router = useRouter();
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [state, setState] = useContext(UserContext);
-    console.log('state of nav => ', state);
     const [drawerOpen, setDrawerOpen] = useState({
         left: false
     })

@@ -105,12 +105,12 @@ export const newsFeed = async (req, res) => {
         //pagination 
         const { page } = req.query || 1;
         console.log(req.query)
-        let limit = 12;
+        const limit = 12;
         // this will look for the post from the followings array according to the date postedBy
         const posts = await Post.find({ postedBy: { $in: followings } })
             .sort({ createdAt: -1 })
             .skip((page - 1) * limit)
-            .limit(limit)
+            .limit(12)
             .populate("postedBy", "_id username image")
             .populate("comments.postedBy", "_id  username image");
         
@@ -130,7 +130,7 @@ export const likePost = async (req, res) => {
                 $addToSet: { likes: req.auth._id }
             },
             { new: true }
-        ).populate("postedBy", "_id username image")
+        ).populate("postedBy", "_id username image").populate("comments.postedBy", "_id  username image");
 
         res.json(post);
     } catch (err) {
@@ -145,7 +145,7 @@ export const unlikePost = async (req, res) => {
                 $pull: { likes: req.auth._id }
             },
             { new: true }
-        ).populate("postedBy", "_id username image")
+        ).populate("postedBy", "_id username image").populate("comments.postedBy", "_id  username image");
 
         res.json(post);
     } catch (err) {
@@ -190,6 +190,19 @@ export const removeComment = async (req, res) => {
 export const totalPosts = async (req, res) => {
     try {
         const total = await Post.find().estimatedDocumentCount();
+        res.json(total);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const profilePageTotalPosts = async (req, res) => {
+    try {
+        const user = await User.findById(req.auth._id);
+        let followings = user.followings;
+        followings.push(req.auth._id);
+        const total= await Post.countDocuments({ postedBy: { $in: followings } });
+        console.log('profile page total posts => ', total);
         res.json(total);
     } catch (err) {
         console.log(err);

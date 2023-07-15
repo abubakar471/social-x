@@ -14,6 +14,7 @@ import {
     addComment,
     removeComment,
     totalPosts,
+    profilePageTotalPosts,
     posts,
     getPost
 } from '../controllers/post';
@@ -30,6 +31,7 @@ router.put('/like-post', requireSignin, likePost);
 router.put('/unlike-post', requireSignin, unlikePost);
 router.put('/add-comment', requireSignin, addComment);
 router.put('/remove-comment', requireSignin, removeComment);
+router.get('/profile-page-total-posts', requireSignin,profilePageTotalPosts);
 router.get('/total-posts', totalPosts);
 router.get('/posts', posts);
 router.get('/post/:_id', getPost);

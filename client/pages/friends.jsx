@@ -20,7 +20,9 @@ const Friends = () => {
     }
 
     useEffect(() => {
-        findPeople();
+        if(state && state.token) {
+            findPeople();
+        }
     }, [state && state.token]);
 
     const handleFollow = async (user) => {

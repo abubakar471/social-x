@@ -5,14 +5,19 @@ import { readdirSync } from 'fs';
 import cors from 'cors';
 import mongoose from 'mongoose';
 require('dotenv').config();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http, {
+
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+
+const server = createServer(app);
+// const io = new Server(server);
+const io = require("socket.io")(server, {
     cors: {
-        origin: process.env.CLIENT_URL,
-        methods: ["GET", "POST"],
-        allowHeaders: ["Content-type"]
+      origin: process.env.CLIENT_URL,
+      methods: ["GET", "POST"]
     }
-})
+  });
+
 
 // database
 mongoose.connect(process.env.DATABASE)
@@ -23,7 +28,9 @@ mongoose.connect(process.env.DATABASE)
         console.log("database error => ", err);
     })
 
-app.use(cors());
+app.use(cors({
+    origin: [process.env.CLIENT_URL],
+}));
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: false }));
 
@@ -37,6 +44,8 @@ readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)));
 //     })
 // })
 
+
+
 io.on("connect", (socket) => {
     socket.on("new-post", (newPost) => {
         console.log("socket io post => ", newPost)
@@ -46,6 +55,6 @@ io.on("connect", (socket) => {
 
 let PORT = process.env.PORT || 8000;
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log("server is runnning on port ", PORT);
 })
