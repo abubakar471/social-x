@@ -288,6 +288,7 @@ export const searchUser = async (req, res) => {
                 { username: { $regex: query, $options: 'i' } }
             ]
         }).select("-password -secret");
+        console.log(user)
         res.json(user);
     } catch (err) {
         console.log(err);

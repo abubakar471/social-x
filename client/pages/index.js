@@ -20,7 +20,7 @@ import CommentForm from "../components/forms/CommentForm";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CircularProgress } from '@mui/material';
 import dynamic from 'next/dynamic';
-
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 // the reconnection option that we pass here to ensure to reconnect with the server again if the connection
 // is lost somehow
 const socket = io(process.env.NEXT_PUBLIC_SOCKETIO, {
@@ -179,9 +179,9 @@ const Home = ({ posts }) => {
       alert("post deleted");
 
       const rawArr = collection.filter(p => {
-        if(p._id !== post._id){
+        if (p._id !== post._id) {
           return data;
-        } 
+        }
       });
       getTotalPosts();
       setNewsFeed(rawArr);
@@ -193,11 +193,11 @@ const Home = ({ posts }) => {
   const handleLike = async (_id) => {
     try {
       const { data } = await axios.put("/like-post", { _id });
-    
+
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -213,9 +213,9 @@ const Home = ({ posts }) => {
     try {
       const { data } = await axios.put("/unlike-post", { _id });
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -242,9 +242,9 @@ const Home = ({ posts }) => {
       setVisible(false);
 
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -262,11 +262,11 @@ const Home = ({ posts }) => {
         postId, comment
       });
       alert('comment deleted');
-    
+
       const rawArr = collection.map(p => {
-        if(p._id === data._id){
+        if (p._id === data._id) {
           return data;
-        } else{
+        } else {
           return p;
         }
       });
@@ -290,10 +290,11 @@ const Home = ({ posts }) => {
           <Link href="/" passHref className={styles.sidebar_link_item}><span><HomeIcon />Home</span></Link>
           <Link href="/user/profile" passHref className={styles.sidebar_link_item}><span><AccountCircleIcon />Profile</span></Link>
           <Link href="/friends" passHref className={styles.sidebar_link_item}><span><PeopleAltIcon />Friends</span></Link>
-          <Link href="/forum" passHref className={styles.sidebar_link_item}><span><ForumIcon />Forum</span></Link>
+          <Link href="/forum" passHref className={styles.sidebar_link_item}><span><WhatshotIcon className={styles.nav_link_icon} />Trendings</span></Link>
           <Link href="/saved-items" passHref className={styles.sidebar_link_item}><span><TagIcon />Saved Items</span></Link>
         </div>
-        <section>
+
+        <section className={styles.postsContainer}>
           <PostForm
             content={content}
             setContent={setContent}
@@ -326,9 +327,11 @@ const Home = ({ posts }) => {
           </InfiniteScroll>
 
         </section>
+
         <section>
           <div>
-            <Search className={styles.search__section} findPeople={findPeople} />
+            <Search className={styles.search__section} setPeople={setPeople} findPeople={findPeople} />
+           
             <People people={people} handleFollow={handleFollow} />
           </div>
         </section>
@@ -344,7 +347,7 @@ const Home = ({ posts }) => {
 
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('https://social-x-backend.onrender.com/api/posts');
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/posts`);
 
   return {
     props: {

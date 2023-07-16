@@ -19,6 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutIcon from '@mui/icons-material/Logout';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import { UserContext } from '@/context/UserContext';
@@ -186,8 +187,8 @@ function Navbar() {
                             <Link href="/friends" passHref className={styles.nav_link}>
                                 {router.pathname == '/friends' ? <PeopleAltIcon className={styles.nav_link_icon} /> : <PeopleAltOutlinedIcon className={styles.nav_link_icon} />}
                             </Link>
-                            <Link href="/forum" passHref className={styles.nav_link}>
-                                {router.pathname == '/forum' ? <ForumIcon className={styles.nav_link_icon} /> : <ForumOutlinedIcon className={styles.nav_link_icon} />}
+                            <Link href="/trendings" passHref className={styles.nav_link}>
+                               <WhatshotIcon className={styles.nav_link_icon} />
                             </Link>
                         </div>
                     )

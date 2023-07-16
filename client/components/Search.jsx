@@ -5,17 +5,24 @@ import People from './cards/People,';
 import styles from "../styles/Search.module.scss";
 import { Button, TextField } from '@mui/material';
 
-const Search = ({ findPeople }) => {
+const Search = ({ findPeople, setPeople }) => {
     const [state, setState] = useContext(UserContext);
     const [query, setQuery] = useState("");
     const [result, setResult] = useState([]);
+    const [message, setMesssage] = useState("");
 
     const searchUser = async (e) => {
         e.preventDefault();
 
         try {
             const { data } = await axios.get(`/search-user/${query}`);
-            setResult(data);
+            
+            if(data.length <= 0){
+                setMesssage("No result found!")
+            } else{
+                setResult(data);
+            }
+        
         } catch (err) {
             console.log(err);
         }
@@ -62,6 +69,7 @@ const Search = ({ findPeople }) => {
                     className={styles.form__input}
                     onChange={(e) => {
                         setQuery(e.target.value);
+                        setMesssage("");
                         setResult([]);
                     }}
                     value={query}
@@ -71,10 +79,14 @@ const Search = ({ findPeople }) => {
                     variant="outlined" />
                 <Button className={styles.search__btn} type='submit' variant="contained">search</Button>
             </form>
-            {result && result.map(r => <People key={r._id} people={result}
-                handleFollow={handleFollow}
-                handleUnfollow={handleUnfollow} />)
-            }
+            {result.length > 0 ? (
+                <div>
+                    <h3 className={styles.results__length}>search results ({result.length})</h3>
+                    <People people={result} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />
+                </div>
+            ) : <div className={styles.hr}>{message}</div>}
+
+            {result.length > 0 && <hr className={styles.hr} />}
         </>
     )
 }

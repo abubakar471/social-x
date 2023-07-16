@@ -6,6 +6,10 @@
     display: flex;
     justify-content: space-between;
     scroll-behavior: smooth;    
+
+    .postsContainer{
+        overflow:-moz-hidden-unscrollable;
+    }
 }
 
 .sidebar_links {
