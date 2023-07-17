@@ -25,7 +25,7 @@ const PostForm = ({ content, setContent, image, postSubmit, handleImage, uploadi
 
 
                 <div className={styles.postFormBtnGroup}>
-                    <Button type="submit" variant="contained" className={styles.postButton}>Post</Button>
+                    <Button type="submit" variant="contained" className={styles.postButton}>Bleetz</Button>
                     <label>
                         {image && image.url ? (<Avatar src={image.url} className={styles.imageAvatar} />) : uploading ? <CircularProgress disableShrink className={styles.imageLoading} /> : <CameraAltIcon className={styles.cameraIcon} />}
                         <input type="file" accept="images/*" hidden onChange={handleImage} />

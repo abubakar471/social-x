@@ -16,6 +16,14 @@ const postSchema = new mongoose.Schema(
             public_id: String
         },
         likes: [{ type: ObjectID, ref: "User" }],
+        likesCount : {
+            type : Number,
+            default: 0
+        },
+        commentsCount : {
+            type : Number,
+            default: 0
+        },
         comments: [{
             text: String,
             created: { type: Date, default: Date.now },

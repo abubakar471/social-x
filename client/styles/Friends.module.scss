@@ -61,3 +61,12 @@
         justify-content: center;
     }
 }
+
+@media (max-width : 631px){
+    .container{
+        width: 90%;
+    }
+    .friendsContainer{
+        justify-content: center;
+    }
+}

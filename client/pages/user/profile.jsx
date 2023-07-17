@@ -387,25 +387,6 @@ const Profile = () => {
             />
             <br />
 
-            {/* <InfiniteScroll
-              dataLength={posts.length}
-              next={fetchData}
-              hasMore={(posts.length < totalPosts) ? true : false} // Replace with a condition based on your data source
-              loader={<div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress /></div>}
-              endMessage={<p>No more data to load.</p>}
-            >
-             
-            </InfiniteScroll> */}
-
-            {/* <InfiniteScroll
-              dataLength={collection.length}
-              next={fetchData}
-              hasMore={collection.length < totalPosts}
-              loader={<div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress /></div>}
-              endMessage={<p>No more data to load</p>}
-            >
-              
-            </InfiniteScroll> */}
 
             <PostList
               posts={collection}

@@ -290,8 +290,9 @@ const Home = ({ posts }) => {
           <Link href="/" passHref className={styles.sidebar_link_item}><span><HomeIcon />Home</span></Link>
           <Link href="/user/profile" passHref className={styles.sidebar_link_item}><span><AccountCircleIcon />Profile</span></Link>
           <Link href="/friends" passHref className={styles.sidebar_link_item}><span><PeopleAltIcon />Friends</span></Link>
-          <Link href="/forum" passHref className={styles.sidebar_link_item}><span><WhatshotIcon className={styles.nav_link_icon} />Trendings</span></Link>
-          <Link href="/saved-items" passHref className={styles.sidebar_link_item}><span><TagIcon />Saved Items</span></Link>
+          <Link href="/trendings" passHref className={styles.sidebar_link_item}><span><WhatshotIcon className={styles.nav_link_icon} />Trendings</span></Link>
+          <Link href="/bleetz" passHref className={styles.sidebar_link_button_container}><button className={styles.sidebar_link_button}>bleetz</button></Link>
+          {/* <Link href="/saved-items" passHref className={styles.sidebar_link_item}><span><TagIcon />Saved Items</span></Link> */}
         </div>
 
         <section className={styles.postsContainer}>

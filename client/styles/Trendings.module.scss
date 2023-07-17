@@ -1,13 +1,44 @@
 .container{
     width: 70%;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .heading {
     font-weight: 600;
+    margin : 10px;
 }
 
 .title {
     font-size: 20px;
     padding-top: 20px !important;
+}
+
+.division{
+   margin: 20px 0;
+}
+
+.trends__header{
+    font-size: 14px;
+    background-color: rgb(16, 141, 212);
+    border-radius: 10px;
+    color: white;
+    width: fit-content;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.trends_default_header{
+    font-size: 14px;
+    // background-color: rgb(16, 141, 212);
+    border-radius: 10px;
+    // color: white;
+    width: fit-content;
+    padding: 5px;
+    margin: 10px 0;
+    text-decoration: underline;
+    line-height: 5%;
+    margin-bottom: 15px;
 }
