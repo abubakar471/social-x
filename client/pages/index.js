@@ -52,6 +52,13 @@ const Home = ({ posts }) => {
 
   useEffect(() => {
     getTotalPosts();
+    const helperFetch = async () => {
+      const { data } = await axios.get(`/posts`);
+      setNewsFeed(data);
+    }
+    if (posts.length <= 0) {
+      helperFetch();
+    }
   }, [])
 
   useEffect(() => {
@@ -61,6 +68,7 @@ const Home = ({ posts }) => {
       findPeople();
     };
   }, [state && state.token && state.user, page]);
+
 
 
   socket.on('new-post', (newPost) => {
@@ -332,7 +340,7 @@ const Home = ({ posts }) => {
         <section>
           <div>
             <Search className={styles.search__section} setPeople={setPeople} findPeople={findPeople} />
-           
+
             <People people={people} handleFollow={handleFollow} />
           </div>
         </section>

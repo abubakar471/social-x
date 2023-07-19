@@ -308,10 +308,46 @@ export const getPost = async (req, res) => {
 
 
 export const trendings = async (req, res) => {
-    const data = await Post.find().sort({ likesCount: -1, commentsCount : -1 }).limit(10)
+    const data = await Post.find().sort({ likesCount: -1, commentsCount: -1 }).limit(10)
         .populate("postedBy", "_id username image")
         .populate("comments.postedBy", "_id  username image");
 
     res.json(data);
 }
 
+export const searchPost = async (req, res) => {
+    const query = req.params.query;
+    if (!query) return;
+    const { page } = req.query || 1;
+    console.log('page => ', page)
+    const limit = 7;
+    console.log(query)
+    // $regex is a special method from mongodb
+    // $options : 'i' is used for case-insensitive matching
+    try {
+        const posts = await Post.find({
+            $or: [
+                { content: { $regex: query, $options: 'i' } }
+            ]
+        })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .sort({createdAt : -1})
+            .populate("postedBy", "_id username image")
+            .populate("comments.postedBy", "_id  username image");
+        console.log("searched posts => ", posts);
+        // to get exact amount of data count in collection with a specific field use use countDocuments otherwise getEstimatedDocumentCount
+        const totalPosts = await Post.countDocuments({
+            $or: [
+                { content: { $regex: query, $options: 'i' } }
+            ]
+        })
+        console.log('totalposts => ', totalPosts)
+        res.json({
+            data : posts, 
+            totalPosts : totalPosts
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}

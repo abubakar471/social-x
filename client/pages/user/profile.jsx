@@ -396,9 +396,10 @@ const Profile = () => {
               handleComment={handleComment}
               removeComment={removeComment}
             />
-            {(collection.length < totalPosts) && <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button className={styles.loadMoreBtn} onClick={fetchData}>Load More</button>
-            </div>}
+           {(collection.length < totalPosts) && <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        {loading && <CircularProgress />}
+                        {!loading && <button className={styles.loadMoreBtn} onClick={fetchData}>Load More</button>}
+                    </div>}
           </div>
 
         </div>

@@ -26,6 +26,7 @@ import { UserContext } from '@/context/UserContext';
 import { useContext } from 'react';
 import { Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import SearchIcon from '@mui/icons-material/Search';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -60,7 +61,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Loading = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-
+    
 
     useEffect(() => {
         const handleStart = (url) => (url !== router.asPath) && setLoading(true);
@@ -97,6 +98,7 @@ function Navbar() {
     const router = useRouter();
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [state, setState] = useContext(UserContext);
+    const [searchQuery, setSearchQuery] = useState("");
     const [drawerOpen, setDrawerOpen] = useState({
         left: false
     })
@@ -153,18 +155,29 @@ function Navbar() {
                         </ListItemButton>
                     </ListItem>
                 ))}
-                <form className={styles.nav__search}>
+                <form className={styles.nav__search} onSubmit={handleSearch}>
                     <TextField type="search" placeholder='search'
                         id="outlined-basic"
                         label="search"
                         variant="outlined"
                         className={styles.nav__search_input}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <Button className={styles.nav__search__btn} type='submit' variant="contained">search</Button>
                 </form>
             </List>
         </Box>
     );
+
+    const handleSearch = async(e) => {
+        e.preventDefault();
+        try{
+            router.push(`/search?searchQuery=${searchQuery}`);
+        } catch(err){
+            console.log(err);
+        }
+    }
 
 
     return (
@@ -177,6 +190,12 @@ function Navbar() {
                     <img src="/images/logo2.png" className={styles.logo} alt="logo" />
 
                     <Link href="/" passHref className={styles.logo_text}>Social X</Link>
+
+                    <form onSubmit={handleSearch} className={styles.nav__search__container}>
+                        <SearchIcon className={styles.nav__search__icon} />
+                        <input className={styles.nav__search__input} type="search" placeholder='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
+                        <SearchIcon className={styles.nav__resp__search__icon} />
+                    </form>
                 </div>
                 {
                     state !== null && (

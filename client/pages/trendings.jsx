@@ -1,9 +1,12 @@
 import PostPublic from "@/components/cards/PostPublic";
 import CommentForm from "@/components/forms/CommentForm";
 import styles from "@/styles/Trendings.module.scss"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from "@mui/material";
 import { Modal } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const Trendings = () => {
     const [posts, setPosts] = useState([]);
@@ -11,6 +14,7 @@ const Trendings = () => {
     const [comment, setComment] = useState('');
     const [visible, setVisible] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
+    const router = useRouter();
 
     const fetchLikedPosts = async () => {
         const { data } = await axios.get('/trendings');
@@ -134,10 +138,14 @@ const Trendings = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={`${styles.heading} ${styles.title} `}></h1>
 
+            <h1 className={`${styles.heading} ${styles.title} `}></h1>
+            
             <div className={styles.division}>
-                <h1 className={styles.trends__header}># most trending now</h1>
+            <IconButton >
+                <ArrowBackIcon onClick={() => router.back()} ></ArrowBackIcon>
+            </IconButton>
+                <h1 className={styles.trends__header}># top 10 most trending now</h1>
                 <div>
                     {
                         posts.map(post => (
@@ -155,10 +163,6 @@ const Trendings = () => {
                 </div>
             </div>
 
-            <div className={styles.division}>
-                <h1 className={styles.trends_default_header}># trending worldwide</h1>
-
-            </div>
 
             <Modal visible={visible} footer={null} onCancel={() => setVisible(false)} title="Comment">
                 <CommentForm comment={comment} setComment={setComment} addComment={addComment} />

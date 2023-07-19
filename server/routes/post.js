@@ -17,7 +17,8 @@ import {
     profilePageTotalPosts,
     posts,
     getPost,
-    trendings
+    trendings,
+    searchPost
 } from '../controllers/post';
 import { requireSignin, canEditDeletePost, isAdmin } from '../middlewares/index';
 
@@ -36,6 +37,7 @@ router.get('/profile-page-total-posts', requireSignin,profilePageTotalPosts);
 router.get('/total-posts', totalPosts);
 router.get('/posts', posts);
 router.get('/post/:_id', getPost);
+router.get('/search/:query', searchPost);
 router.get('/trendings', trendings)
 router.delete("/admin/delete-post/:_id", requireSignin, isAdmin, deletePost);
 

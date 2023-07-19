@@ -3,10 +3,15 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@/context/UserContext';
 import axios from "axios";
 import Link from "next/link";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useRouter } from "next/router";
 
 const Friends = () => {
     const [state, setState] = useContext(UserContext);
     const [people, setPeople] = useState([]);
+    const router = useRouter();
+
     const findPeople = async () => {
         try {
             const { data } = await axios.get('/find-people');
@@ -20,34 +25,37 @@ const Friends = () => {
     }
 
     useEffect(() => {
-        if(state && state.token) {
+        if (state && state.token) {
             findPeople();
         }
     }, [state && state.token]);
 
     const handleFollow = async (user) => {
         try {
-          const { data } = await axios.put('/user-follow', { _id: user._id });
-          let auth = JSON.parse(localStorage.getItem("user"));
-          auth.user = data;
-          localStorage.setItem("user", JSON.stringify(auth));
-          setState({ ...state, user: data });
-    
-          //update people state
-          let filtered = people.filter((p) => p._id !== user._id);
-          setPeople(filtered);
-          alert(`${auth.user.username} started following ${user.username}`);
+            const { data } = await axios.put('/user-follow', { _id: user._id });
+            let auth = JSON.parse(localStorage.getItem("user"));
+            auth.user = data;
+            localStorage.setItem("user", JSON.stringify(auth));
+            setState({ ...state, user: data });
+
+            //update people state
+            let filtered = people.filter((p) => p._id !== user._id);
+            setPeople(filtered);
+            alert(`${auth.user.username} started following ${user.username}`);
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      }
+    }
 
     return (
         <div className={styles.container}>
             {people ? (
                 <div>
                     <div className={styles.heading}>
-                        <h1 className={styles.title}>People you may know</h1>
+                      
+                        <h1 className={styles.title}><IconButton>
+                            <ArrowBackIcon onClick={() => router.back()} ></ArrowBackIcon>
+                        </IconButton>People you may know</h1>
                     </div>
 
                     <div className={styles.friendsContainer}>
