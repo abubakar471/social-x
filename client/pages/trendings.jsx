@@ -2,7 +2,7 @@ import PostPublic from "@/components/cards/PostPublic";
 import CommentForm from "@/components/forms/CommentForm";
 import styles from "@/styles/Trendings.module.scss"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import { Modal } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -14,12 +14,21 @@ const Trendings = () => {
     const [comment, setComment] = useState('');
     const [visible, setVisible] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const fetchLikedPosts = async () => {
-        const { data } = await axios.get('/trendings');
-        console.log(data)
-        setPosts(data);
+        setLoading(true);
+        try {
+            const { data } = await axios.get('/trendings');
+            console.log(data)
+            setPosts(data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+
     }
 
     const handleDelete = async (post) => {
@@ -140,11 +149,11 @@ const Trendings = () => {
         <div className={styles.container}>
 
             <h1 className={`${styles.heading} ${styles.title} `}></h1>
-            
+
             <div className={styles.division}>
-            <IconButton >
-                <ArrowBackIcon onClick={() => router.back()} ></ArrowBackIcon>
-            </IconButton>
+                <IconButton >
+                    <ArrowBackIcon onClick={() => router.back()} ></ArrowBackIcon>
+                </IconButton>
                 <h1 className={styles.trends__header}># top 10 most trending now</h1>
                 <div>
                     {
@@ -160,6 +169,9 @@ const Trendings = () => {
                         ))
                     }
 
+                    {loading && <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <CircularProgress />
+                    </div>}
                 </div>
             </div>
 

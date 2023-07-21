@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from "react";
 import Navbar from "../navbar/Navbar";
-import styles from "../../styles/Navbar.module.scss";
+import styles from "../../styles/Navbar.module.css";
 import { UserContext } from '@/context/UserContext';
 
 const Layout = ({ children }, PropsWithChildren) => {

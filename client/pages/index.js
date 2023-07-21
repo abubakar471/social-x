@@ -52,13 +52,6 @@ const Home = ({ posts }) => {
 
   useEffect(() => {
     getTotalPosts();
-    const helperFetch = async () => {
-      const { data } = await axios.get(`/posts`);
-      setNewsFeed(data);
-    }
-    if (posts.length <= 0) {
-      helperFetch();
-    }
   }, [])
 
   useEffect(() => {
@@ -283,6 +276,19 @@ const Home = ({ posts }) => {
       console.log(err);
     }
   }
+
+
+  const helperFetch = async () => {
+    const { data } = await axios.get(`/posts`);
+    setNewsFeed(data);
+  }
+
+
+  process.browser && state === null && setTimeout(() => {
+    helperFetch();
+  }, 1000);
+
+
 
   return (
     <>

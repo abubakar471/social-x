@@ -6,3 +6,12 @@
     justify-content: center;
     height: auto;
 }
+
+@media only screen and (max-width : 525px){
+    .container{
+        width: 90%;
+    }
+    .card{
+        width: 335px;
+    }
+}

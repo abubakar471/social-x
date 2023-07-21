@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Link from "next/link";
-import styles from "../../styles/Navbar.module.scss";
+import styles from "../../styles/Navbar.module.css";
 import HomeIcon from '@mui/icons-material/Home';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -61,7 +61,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Loading = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    
+
 
     useEffect(() => {
         const handleStart = (url) => (url !== router.asPath) && setLoading(true);
@@ -115,7 +115,7 @@ function Navbar() {
         setAnchorElUser(null);
     };
 
-    const settings = ['Profile', 'Account', 'Logout'];
+    let settings = ['Profile', 'Account', 'Admin', 'Logout'];
 
 
 
@@ -160,24 +160,34 @@ function Navbar() {
                         id="outlined-basic"
                         label="search"
                         variant="outlined"
-                        className={styles.nav__search_input}
+                        className={styles.nav__search__drawyer__input}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <Button className={styles.nav__search__btn} type='submit' variant="contained">search</Button>
+                    <Button className={styles.nav__search__drawyer__btn} type='submit' variant="contained">search</Button>
                 </form>
             </List>
         </Box>
     );
 
-    const handleSearch = async(e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
-        try{
+        try {
             router.push(`/search?searchQuery=${searchQuery}`);
-        } catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
+
+    // useEffect(() => {
+    //     if (state && state.token) {
+    //         if (state.user.role === "Admin") {
+    //             settings = settings.splice(2, 0, 'Admin');
+    //         } 
+    //     } 
+    // }, [state && state.token]);
+
+
 
 
     return (
@@ -193,8 +203,8 @@ function Navbar() {
 
                     <form onSubmit={handleSearch} className={styles.nav__search__container}>
                         <SearchIcon className={styles.nav__search__icon} />
-                        <input className={styles.nav__search__input} type="search" placeholder='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
-                        <SearchIcon className={styles.nav__resp__search__icon} />
+                        <input className={styles.nav__search__input} type="search" placeholder='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <SearchIcon className={styles.nav__resp__search__icon} onClick={() => router.push("/search")} />
                     </form>
                 </div>
                 {
@@ -207,13 +217,13 @@ function Navbar() {
                                 {router.pathname == '/friends' ? <PeopleAltIcon className={styles.nav_link_icon} /> : <PeopleAltOutlinedIcon className={styles.nav_link_icon} />}
                             </Link>
                             <Link href="/trendings" passHref className={styles.nav_link}>
-                               <WhatshotIcon className={styles.nav_link_icon} />
+                                <WhatshotIcon className={styles.nav_link_icon} />
                             </Link>
                         </div>
                     )
                 }
                 <div>
-                    
+
                     <Drawer
                         anchor={'left'}
                         open={drawerOpen['left']}
@@ -222,7 +232,7 @@ function Navbar() {
 
                         {list('left')}
                     </Drawer>
-            
+
 
                     {state !== null ? (
                         <div>
@@ -257,7 +267,7 @@ function Navbar() {
                                     {settings.map((setting) => (
                                         <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">
-                                                {
+                                                {/* {
                                                     (setting === 'Logout') ? (
                                                         <span className={styles.nav_menu_container}
                                                             onClick={handleSignout}>
@@ -266,22 +276,49 @@ function Navbar() {
                                                     ) : ((setting === 'Account') ? (
                                                         <Link className={styles.nav_menu_container} href="/user/account/update" passHref>
                                                             {setting}
-                                                        </Link>) : (<Link className={styles.nav_menu_container} href="/user/profile" passHref>
+                                                        </Link>) : ((setting === 'Admin' && state.user.role === "Admin") ? (<Link className={styles.nav_menu_container} href="/admin" passHref>
                                                             {setting}
-                                                        </Link>))
-                                                }
-                                                {/* {
-                                                    (setting === 'Logout') ? (
-                                                        <p className={styles.nav_menu_container} onClick={handleSignout} ><LogoutIcon />Sign Out</p>
-                                                    ) : (setting)
+                                                        </Link>) :
+                                                            ((setting === 'Profile') && (<Link className={styles.nav_menu_container} href="/user/profile" passHref>
+                                                            {setting}
+                                                        </Link>)))
+                                                    )
                                                 } */}
+
+                                                {
+                                                    (setting === 'Logout') && (<span className={styles.nav_menu_container}
+                                                        onClick={handleSignout}>
+                                                        <LogoutIcon />Sign Out
+                                                    </span>)
+                                                }
+
+                                                {
+                                                    (setting === 'Account') && (<Link className={styles.nav_menu_container}
+                                                        href="/user/account/update" passHref>
+                                                        {setting}
+                                                    </Link>)
+                                                }
+
+                                                {
+                                                    (setting === 'Admin' && state.user.role === "Admin") && (<Link className={styles.nav_menu_container} href="/admin" passHref>
+                                                        {setting}
+                                                    </Link>)
+                                                }
+
+                                                {
+                                                    (setting === 'Admin' && state.user.role === 'Subscriber') && (<p>----------------------</p>)
+                                                }
+
+                                                {
+                                                    (setting === 'Profile') && (<Link className={styles.nav_menu_container} href="/user/profile" passHref>
+                                                        {setting}
+                                                    </Link>)
+                                                }
                                             </Typography>
                                         </MenuItem>
                                     ))}
                                 </Menu>
                             </Box>
-                            {/* <Avatar alt="Remy Sharp" src="/images/logo4.png" />
-                               <a style={{ cursor: "pointer" }} onClick={handleSignout} className={styles.auth_link}>Sign Out</a> */}
                         </div>
                     ) : (<div>
                         <Link href="/signup" className={styles.auth_link} passHref>Sign Up</Link>

@@ -3,16 +3,18 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@/context/UserContext';
 import axios from "axios";
 import Link from "next/link";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from "next/router";
 
 const Friends = () => {
     const [state, setState] = useContext(UserContext);
     const [people, setPeople] = useState([]);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const findPeople = async () => {
+        setLoading(true);
         try {
             const { data } = await axios.get('/find-people');
             console.log(data);
@@ -21,6 +23,8 @@ const Friends = () => {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -52,7 +56,7 @@ const Friends = () => {
             {people ? (
                 <div>
                     <div className={styles.heading}>
-                      
+
                         <h1 className={styles.title}><IconButton>
                             <ArrowBackIcon onClick={() => router.back()} ></ArrowBackIcon>
                         </IconButton>People you may know</h1>
@@ -69,6 +73,10 @@ const Friends = () => {
                             </div>
                         ))}
                     </div>
+
+                    {loading && <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <CircularProgress />
+                    </div>}
                 </div>
             ) : (
                 <div>loading</div>

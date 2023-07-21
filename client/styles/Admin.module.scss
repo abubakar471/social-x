@@ -1,0 +1,161 @@
+.container{
+    width: 80%;
+    margin: auto;
+}
+
+.heading{
+    margin: 100px 0;
+    color: rgb(39, 156, 224);
+}
+
+.totalsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.totalItem{
+    background: white;
+    color: rgb(39, 156, 224);
+    font-weight: bold;
+    width: 40%;
+    margin: auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+}
+
+.searchContainer{
+    width: 100%;
+    margin: 20px auto;
+
+    select{
+        width: 100px;
+        margin: 10px 0;
+        cursor: pointer;
+        border: 1px solid rgb(253, 229, 10);
+        outline: rgb(253, 229, 10);
+    }
+}
+
+.searchInput{
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    text-indent: 10px;
+    border: none;
+    outline: none;
+}
+
+
+.results{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// post card
+
+.card {
+    width: 500px;
+    margin: 20px 0;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background: white;
+    padding: 10px;
+}
+
+.card__body {
+    margin-bottom: 10px;
+}
+
+.cardImage {
+    width: 100%;
+}
+
+.card__header {
+    display: flex;
+    align-items: center;
+    padding: 7px 5px;
+}
+
+.reactionDiv {
+    margin-top: 10px;
+    display: flex;
+    align-items: cnter;
+    justify-content: space-between;
+}
+
+.reactionandcomments {
+    display: flex;
+    align-items: center;
+}
+
+.reactionIcons {
+    color: rgb(235, 94, 94) !important;
+    cursor: pointer;
+}
+
+.postEditAndDelete {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+
+.username {
+    margin: 0 5px;
+}
+
+.createdAt{
+font-size : 12px;
+}
+
+
+// user card
+
+.userCardContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.userCard{
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    margin: 20px 0;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background: white;
+    padding: 10px;
+}
+
+.userCard__username{
+    margin: 0 10px;
+}
+
+.userDeleteContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width : 525px){
+    .results{
+        width: 90%;
+        margin: auto;
+    }
+
+    .userCardContainer{
+        width: 335px;
+    }
+
+    .userCard{
+        width: 335px;
+    }
+}
